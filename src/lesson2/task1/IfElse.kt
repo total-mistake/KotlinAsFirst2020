@@ -87,11 +87,16 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = when {
-    (t1 * v1 + t2 * v2 + t3 * v3) / 2.0 <= (t1 * v1) -> ((t1 * v1 + t2 * v2 + t3 * v3) / 2.0) / v1
-    ((t1 * v1 + t2 * v2 + t3 * v3) / 2.0 > (t1 * v1)) && (t1 * v1 + t2 * v2 + t3 * v3) / 2.0 <= (t1 * v1 + t2 * v2) ->
-        t1 + (((t1 * v1 + t2 * v2 + t3 * v3) / 2.0 - (t1 * v1)) / v2)
-    else -> t1 + t2 + (((t1 * v1 + t2 * v2 + t3 * v3) / 2.0 - (t1 * v1 + t2 * v2)) / v3)
+): Double {
+    val halfWay: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
+    val way1: Double = t1 * v1
+    val way2: Double = way1 + t2 * v2
+    way2 + t3 * v3
+    return when {
+        halfWay <= way1 -> halfWay / v1
+        halfWay <= way2 -> t1 + (halfWay - way1) / v2
+        else -> t1 + t2 + (halfWay - way2) / v3
+    }
 }
 
 /**
@@ -144,29 +149,35 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val sqrB = b * b
+    val sqrA = a * a
+    val sqrC = c * c
+    val sumSqrAB = sqrB + sqrA
+    val sumSqrAC = sqrA + sqrC
+    val sumSqrBC = sqrB + sqrC
     return when {
         (a + b < c) || (a + c < b) || (c + b < a) -> -1
         else -> {
             when {
                 (a > b) && (a > c) -> {
                     when {
-                        a * a == b * b + c * c -> 1
-                        a * a < b * b + c * c -> 0
+                        sqrA == sumSqrBC -> 1
+                        sqrA < sumSqrBC -> 0
                         else -> 2
 
                     }
                 }
                 (c > a) && (c > b) -> {
                     when {
-                        c * c == b * b + a * a -> 1
-                        c * c < b * b + a * a -> 0
+                        sqrC == sumSqrAB -> 1
+                        sqrC < sumSqrAB -> 0
                         else -> 2
                     }
                 }
                 else -> {
                     when {
-                        b * b == a * a + c * c -> 1
-                        b * b < a * a + c * c -> 0
+                        sqrB == sumSqrAC -> 1
+                        sqrB < sumSqrAC -> 0
                         else -> 2
                     }
                 }
