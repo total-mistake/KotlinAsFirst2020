@@ -2,9 +2,8 @@
 
 package lesson3.task1
 
-import lesson1.task1.sqr
-import kotlin.math.min
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -312,20 +311,19 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var sequence = 0
+    var sizeSequence = 0
     var a = 1
     var sqrA = 0
-    while (digitNumber(sequence) <= n) {
+    while (sizeSequence < n) {
         sqrA = a * a
-        for (i in 1..digitNumber(sqrA))
-            sequence *= 10
-        sequence += sqrA
+        sizeSequence += digitNumber(sqrA)
         a++
     }
-    while (digitNumber(sequence) > n)
-        sequence /= 10
-    sequence %= 10
-    return sequence
+    while (sizeSequence > n) {
+        sqrA /= 10
+        sizeSequence--
+    }
+    return sqrA % 10
 }
 
 /**
@@ -339,20 +337,17 @@ fun squareSequenceDigit(n: Int): Int {
  */
 fun fibSequenceDigit(n: Int): Int {
     var a = 0
-    var sequence = 0
-    do {
+    var sizeFib = 0
+    var f = 0
+    while (sizeFib < n) {
         a++
-        for (i in 1..digitNumber(fib(a)))
-            sequence *= 10
-        sequence += fib(a)
-    } while (digitNumber(sequence) < n)
-    if (digitNumber(sequence) == n)
-        sequence %= 10
-    else {
-        while (digitNumber(sequence) > n)
-            sequence /= 10
-        sequence %= 10
+        f = fib(a)
+        sizeFib += digitNumber(f)
     }
-    return sequence
+    while (sizeFib > n) {
+        f /= 10
+        sizeFib--
+    }
+    return f % 10
 }
 
