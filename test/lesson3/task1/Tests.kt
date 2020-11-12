@@ -92,6 +92,8 @@ class Tests {
     @Tag("2")
     fun minDivisor() {
         assertEquals(2, minDivisor(2))
+        assertEquals(3, minDivisor(3))
+        assertEquals(2, minDivisor(24))
         assertEquals(3, minDivisor(75))
         assertEquals(5, minDivisor(75 / 3))
         assertEquals(97, minDivisor(97))
@@ -144,6 +146,7 @@ class Tests {
         assertEquals(2089830349, lcm(23579, 88631))
         assertEquals(2022222222, lcm(2, 1011111111))
         assertEquals(2022222222, lcm(1011111111, 2))
+        assertEquals(3865796, lcm(853, 4532))
     }
 
     @Test

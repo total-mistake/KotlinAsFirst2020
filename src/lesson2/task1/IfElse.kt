@@ -91,7 +91,6 @@ fun timeForHalfWay(
     val halfWay = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     val way1 = t1 * v1
     val way2 = way1 + t2 * v2
-    way2 + t3 * v3
     return when {
         halfWay <= way1 -> halfWay / v1
         halfWay <= way2 -> t1 + (halfWay - way1) / v2
@@ -159,7 +158,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
         (a + b < c) || (a + c < b) || (c + b < a) -> -1
         else -> {
             when {
-                (a > b) && (a > c) -> {
+                a == maxOf(a, b, c) -> {
                     when {
                         sqrA == sumSqrBC -> 1
                         sqrA < sumSqrBC -> 0
@@ -167,7 +166,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
 
                     }
                 }
-                (c > a) && (c > b) -> {
+                c == maxOf(a, b, c) -> {
                     when {
                         sqrC == sumSqrAB -> 1
                         sqrC < sumSqrAB -> 0

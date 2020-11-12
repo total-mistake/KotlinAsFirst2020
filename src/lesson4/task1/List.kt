@@ -1,10 +1,9 @@
-@file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
+@file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence", "NAME_SHADOWING", "ControlFlowWithEmptyBody")
 
 package lesson4.task1
 
-import kotlinx.html.ARel.index
 import lesson1.task1.discriminant
-import java.io.File.separator
+import lesson3.task1.minDivisor
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -122,13 +121,11 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double =
-    if (v.isEmpty()) 0.0
-    else {
-        val v = v.map { it * it }
-        val sum = v.sum()
-        sqrt(sum)
-    }
+fun abs(v: List<Double>): Double {
+    val v = v.map { it * it }
+    val sum = v.sum()
+    return sqrt(sum)
+}
 
 /**
  * Простая (2 балла)
@@ -172,7 +169,7 @@ fun times(a: List<Int>, b: List<Int>): Int =
         var result = 0
         for (i in a.indices)
             result += a[i] * b[i]
-        result.toInt()
+        result
     }
 
 /**
@@ -197,8 +194,7 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    if (list.isEmpty())
-    else {
+    if (list.isNotEmpty()) {
         var sum = list.first()
         for (i in 1 until list.size) {
             sum += list[i]
@@ -216,13 +212,11 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var list = mutableListOf<Int>()
+    val list = mutableListOf<Int>()
     var a = n
-    for (i in 2..n) {
-        while (a != 1 && a % i == 0) {
-            a /= i
-            list.add(i)
-        }
+    while (a > 1) {
+        list.add(minDivisor(a))
+        a /= minDivisor(a)
     }
     return list
 }
@@ -247,11 +241,11 @@ fun convert(n: Int, base: Int): List<Int> {
     val list = mutableListOf<Int>()
     var x = n
     while (x >= base) {
-        list.add(0, x % base)
+        list.add(x % base)
         x /= base
     }
-    list.add(0, x)
-    return list
+    list.add(x)
+    return list.reversed()
 }
 
 /**

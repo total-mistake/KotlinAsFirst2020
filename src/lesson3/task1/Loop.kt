@@ -2,7 +2,6 @@
 
 package lesson3.task1
 
-import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
 
@@ -110,11 +109,16 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var minD = 0
-    for (i in 2..n) {
-        if (n % i == 0) {
-            minD = i
-            break
+    var minD = n
+    val a = sqrt(n.toDouble())
+    if (n % 2 == 0)
+        minD = 2
+    else {
+        for (i in 3..a.toInt() step 2) {
+            if (n % i == 0) {
+                minD = i
+                break
+            }
         }
     }
     return minD
@@ -127,13 +131,9 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var maxD = 0
-    for (i in (n - 1) downTo 1) {
-        if (n % i == 0) {
-            maxD = i
-            break
-        }
-    }
+    var maxD = n / minDivisor(n)
+    if (maxD == n)
+        maxD = 1
     return maxD
 }
 
@@ -156,14 +156,14 @@ fun maxDivisor(n: Int): Int {
 fun collatzSteps(x: Int): Int {
     var result = 0
     var number = x
-    while (number > 1)
+    while (number > 1) {
         if (number % 2 == 0) {
             number /= 2
-            result++
         } else {
             number = 3 * number + 1
-            result++
         }
+        result++
+    }
     return result
 }
 
@@ -175,14 +175,15 @@ fun collatzSteps(x: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     var k = m * n
-    for (i in max(m, n)..m * n) {
-        if (i % m == 0) {
-            if (i % n == 0) {
-                k = i
-                break
-            }
-        }
+    var number1 = m
+    var number2 = n
+    while (number1 > 0 && number2 > 0) {
+        if (number1 > number2)
+            number1 %= number2
+        else
+            number2 %= number1
     }
+    k /= (number1 + number2)
     return k
 }
 
@@ -243,18 +244,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    var number = n
-    var revertNumber = revert(number)
-    while (number > 0) {
-        if (number % 10 != revertNumber % 10) {
-            return false
-        }
-        number /= 10
-        revertNumber /= 10
-    }
-    return true
-}
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя (3 балла)
@@ -265,18 +255,15 @@ fun isPalindrome(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    if (n < 10)
-        return false
-    else {
-        var number = n
-        while (number > 9) {
-            if ((number % 10) != ((number / 10) % 10)) {
-                return true
-            }
-            number /= 10
+    var number = n
+    while (number > 9) {
+        if ((number % 10) != ((number / 10) % 10)) {
+            return true
         }
-        return false
+        number /= 10
     }
+    return false
+
 }
 
 /**
