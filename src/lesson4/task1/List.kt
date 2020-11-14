@@ -259,7 +259,18 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val list = listOf(
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+        "t", "u", "v", "w", "x", " y", "z"
+    )
+    var string = ""
+    for (element in convert(n, base))
+        if (element > 9)
+            string += list[element - 10]
+        else string += element
+    return string
+}
 
 /**
  * Средняя (3 балла)
@@ -292,7 +303,20 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val listRoman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val listArabic = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    var number = n
+    var string = ""
+    while (number > 0) {
+        for (i in 0..12)
+            while (number >= listArabic[i]) {
+                number -= listArabic[i]
+                string += listRoman[i]
+            }
+    }
+    return string
+}
 
 /**
  * Очень сложная (7 баллов)
