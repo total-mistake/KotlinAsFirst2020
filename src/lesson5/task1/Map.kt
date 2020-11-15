@@ -166,7 +166,20 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    val map = mutableMapOf<String, List<Double>>()
+    for ((stock, cost) in stockPrices)
+        if (map[stock] == null)
+            map[stock] = listOf(cost)
+        else {
+            map[stock] = map[stock]!! + listOf<Double>(cost)
+        }
+    val result = mutableMapOf<String, Double>()
+    for ((stock, cost) in map) {
+        result[stock] = cost.sum() / cost.size
+    }
+    return result
+}
 
 /**
  * Средняя (4 балла)
@@ -183,7 +196,25 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    var string = ""
+    val p = mutableMapOf<String, Double>()
+    var minCost = 0.0
+    for ((name, pair) in stuff) {
+        p += pair
+        for ((type, cost) in p) {
+            if (minCost == 0.0)
+                minCost = cost
+            if (type == kind && cost <= minCost) {
+                minCost = cost
+                string = name
+            }
+        }
+    }
+    return if (string == "")
+        null
+    else string
+}
 
 /**
  * Средняя (3 балла)
