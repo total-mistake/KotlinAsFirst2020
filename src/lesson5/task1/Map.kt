@@ -172,7 +172,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
         if (map[stock] == null)
             map[stock] = listOf(cost)
         else {
-            map[stock] = map[stock]!! + listOf<Double>(cost)
+            map[stock] = map[stock]!! + listOf(cost)
         }
     val result = mutableMapOf<String, Double>()
     for ((stock, cost) in map) {
@@ -181,7 +181,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
     return result
 }
 
-/***
+/**
  * Средняя (4 балла)
  *
  * Входными данными является ассоциативный массив
@@ -197,7 +197,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var string = ""
+    var string = ","
     val p = mutableMapOf<String, Double>()
     var minCost = 0.0
     for ((name, pair) in stuff) {
@@ -211,7 +211,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
             }
         }
     }
-    return if (string == "")
+    return if (string == ",")
         null
     else string
 }
