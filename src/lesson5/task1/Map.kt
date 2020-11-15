@@ -181,7 +181,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
     return result
 }
 
-/**
+/***
  * Средняя (4 балла)
  *
  * Входными данными является ассоциативный массив
