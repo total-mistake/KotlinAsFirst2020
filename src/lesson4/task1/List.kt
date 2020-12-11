@@ -4,6 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson3.task1.minDivisor
+import java.lang.StringBuilder
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -260,17 +261,18 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    val list = listOf(
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
-        "t", "u", "v", "w", "x", " y", "z"
-    )
-    var string = ""
+    val list = mutableListOf<String>("")
+    for (i in 0..25) {
+        list.add(('a' + i).toString())
+    }
+    var string = buildString { }
     for (element in convert(n, base))
         if (element > 9)
-            string += list[element - 10]
+            string += list[element - 9]
         else string += element
     return string
 }
+
 
 /**
  * Средняя (3 балла)
@@ -307,14 +309,13 @@ fun roman(n: Int): String {
     val listRoman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     val listArabic = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     var number = n
-    var string = ""
-    while (number > 0) {
-        for (i in 0..12)
-            while (number >= listArabic[i]) {
-                number -= listArabic[i]
-                string += listRoman[i]
-            }
-    }
+    var string = buildString { }
+    for (i in listArabic.indices)
+        while (number >= listArabic[i] && number > 0) {
+            number -= listArabic[i]
+            string += listRoman[i]
+        }
+
     return string
 }
 

@@ -2,7 +2,9 @@
 
 package lesson3.task1
 
+
 import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -130,12 +132,8 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var maxD = n / minDivisor(n)
-    if (maxD == n)
-        maxD = 1
-    return maxD
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
+
 
 /**
  * Простая (2 балла)
@@ -297,6 +295,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
+fun a(size: Int, n: Int, sqr: Int) = (sqr / 10.0.pow(size - n)).toInt() % 10
 fun squareSequenceDigit(n: Int): Int {
     var sizeSequence = 0
     var a = 1
@@ -306,11 +305,7 @@ fun squareSequenceDigit(n: Int): Int {
         sizeSequence += digitNumber(sqrA)
         a++
     }
-    while (sizeSequence > n) {
-        sqrA /= 10
-        sizeSequence--
-    }
-    return sqrA % 10
+    return a(sizeSequence, n, sqrA)
 }
 
 /**
@@ -331,10 +326,6 @@ fun fibSequenceDigit(n: Int): Int {
         f = fib(a)
         sizeFib += digitNumber(f)
     }
-    while (sizeFib > n) {
-        f /= 10
-        sizeFib--
-    }
-    return f % 10
+    return a(sizeFib, n, f)
 }
 

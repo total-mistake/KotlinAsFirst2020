@@ -2,6 +2,9 @@
 
 package lesson5.task1
 
+import kotlin.math.max
+import kotlin.math.pow
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -197,24 +200,18 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var string = ","
-    val p = mutableMapOf<String, Double>()
-    var minCost = 0.0
+    var string: String? = null
+    var minCost = 1.7 * 10.0.pow(308)
     for ((name, pair) in stuff) {
-        p += pair
-        for ((type, cost) in p) {
-            if (minCost == 0.0)
-                minCost = cost
-            if (type == kind && cost <= minCost) {
-                minCost = cost
-                string = name
-            }
+        val (type, cost) = pair
+        if (kind == type && cost < minCost) {
+            minCost = cost
+            string = name
         }
     }
-    return if (string == ",")
-        null
-    else string
+    return string
 }
+
 
 /**
  * Средняя (3 балла)
