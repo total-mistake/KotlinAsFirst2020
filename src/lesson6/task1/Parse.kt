@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.lang.IllegalArgumentException
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -127,7 +129,19 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val jumpResults = jumps.split(" ")
+    var largestJump = 0
+    try {
+        for (i in jumpResults.indices step 2) {
+            if (largestJump < jumpResults[i].toInt() && "+" in jumpResults[i + 1])
+                largestJump = jumpResults[i].toInt()
+        }
+        return largestJump
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+}
 
 /**
  * Сложная (6 баллов)
@@ -138,7 +152,23 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val parts = expression.split(" ")
+    for (i in parts.indices step 2) {
+        if ("+" in parts[i] || "-" in parts[i])
+            throw IllegalArgumentException("Description")
+    }
+    var result = parts[0].toInt()
+    for (i in 1 until parts.size step 2)
+        when {
+            (parts[i] == "+") -> result += parts[i + 1].toInt()
+            (parts[i] == "-") -> result -= parts[i + 1].toInt()
+            else -> throw IllegalArgumentException("Description")
+        }
+    return result
+
+}
+
 
 /**
  * Сложная (6 баллов)
