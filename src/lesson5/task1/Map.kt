@@ -2,7 +2,6 @@
 
 package lesson5.task1
 
-import kotlin.math.max
 import kotlin.math.pow
 
 // Урок 5: ассоциативные массивы и множества

@@ -132,14 +132,14 @@ fun bestLongJump(jumps: String): Int = TODO()
 fun bestHighJump(jumps: String): Int {
     val jumpResults = jumps.split(" ")
     var largestJump = 0
-    try {
+    return try {
         for (i in jumpResults.indices step 2) {
             if (largestJump < jumpResults[i].toInt() && "+" in jumpResults[i + 1])
                 largestJump = jumpResults[i].toInt()
         }
-        return largestJump
+        largestJump
     } catch (e: NumberFormatException) {
-        return -1
+        -1
     }
 }
 

@@ -4,7 +4,6 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson3.task1.minDivisor
-import java.lang.StringBuilder
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -261,15 +260,15 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    val list = mutableListOf<String>("")
+    val list = mutableListOf("")
     for (i in 0..25) {
         list.add(('a' + i).toString())
     }
-    var string = buildString { }
+    var string = ""
     for (element in convert(n, base))
-        if (element > 9)
-            string += list[element - 9]
-        else string += element
+        string = if (element > 9)
+            buildString { append(list[element - 9]) }
+        else buildString { append(list[element]) }
     return string
 }
 
