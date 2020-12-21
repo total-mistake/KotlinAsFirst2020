@@ -260,18 +260,17 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    val list = mutableListOf("")
+    val list = mutableListOf<String>()
     for (i in 0..25) {
         list.add(('a' + i).toString())
     }
-    var string = ""
-    for (element in convert(n, base))
-        string = if (element > 9)
-            buildString { append(list[element - 9]) }
-        else buildString { append(list[element]) }
-    return string
+    return buildString {
+        for (element in convert(n, base))
+            if (element > 9)
+                append(list[element - 10])
+            else append(element)
+    }
 }
-
 
 /**
  * Средняя (3 балла)
@@ -308,14 +307,13 @@ fun roman(n: Int): String {
     val listRoman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     val listArabic = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     var number = n
-    var string = buildString { }
-    for (i in listArabic.indices)
-        while (number >= listArabic[i] && number > 0) {
-            number -= listArabic[i]
-            string += listRoman[i]
-        }
-
-    return string
+    return buildString {
+        for (i in listArabic.indices)
+            while (number >= listArabic[i] && number > 0) {
+                number -= listArabic[i]
+                append(listRoman[i])
+            }
+    }
 }
 
 /**
