@@ -94,14 +94,14 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
         return number
     }
     for (string in substrings) {
+        if (string in map)
+            continue
         for (line in File(inputName).readLines()) {
             val number = numberOfEntries(string, line)
             if (map[string] != null)
                 map[string] = map[string]!! + number
             else map[string] = number
         }
-        if (string in map)
-            continue
     }
     return map.toMap()
 }
