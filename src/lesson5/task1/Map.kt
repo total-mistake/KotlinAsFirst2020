@@ -2,8 +2,6 @@
 
 package lesson5.task1
 
-import kotlin.math.pow
-
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -203,9 +201,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
     var minCost: Double? = null
     for ((name, pair) in stuff) {
         val (type, cost) = pair
-        if (minCost == null)
-            minCost = cost
-        if (kind == type && cost <= minCost) {
+        if (kind == type && cost <= minCost ?: cost) {
             minCost = cost
             string = name
         }

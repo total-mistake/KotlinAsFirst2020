@@ -234,6 +234,16 @@ class Tests {
                 ""
             )
         )
+        assertEquals(
+            "a",
+            findCheapestStuff(
+                mapOf(
+                    "" to ("/Xa:A,bhfJo)@S/? Dh:Y<dIp<xtGPv^Xy2[Y6;i'}vJz(wdJ4vg[zA+m~AK[J4\\\"YoW\$\\n{,7aas]\\\"9O,G=(U{RjK\\\"]G\\\"mR-ujkfQD@%vnRsrG<?0\\tCNqM3:Gj:\\\"EDao2R--o;&s1E)GJF\\niSGo:\\t2u\$#]egD[q\\t?TER>L\\nFMtM<f4Ga72_GY. \$" to -1.7976931348623157e+308),
+                    "a" to ("" to 5e-324)
+                ),
+                ""
+            )
+        )
     }
 
     @Test
